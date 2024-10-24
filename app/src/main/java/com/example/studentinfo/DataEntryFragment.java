@@ -34,3 +34,28 @@ public class DataEntryFragment extends Fragment {
 
     @Nullable
     @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_data_entry, container, false);
+        editTextName = view.findViewById(R.id.editTextName);
+        editTextAge = view.findViewById(R.id.editTextAge);
+        editTextGrade = view.findViewById(R.id.editTextGrade);
+        editTextMajor = view.findViewById(R.id.editTextMajor);
+        buttonSubmit = view.findViewById(R.id.buttonSubmit);
+        buttonClear = view.findViewById(R.id.buttonClear);
+
+        buttonSubmit.setOnClickListener(v -> {
+            String name = editTextName.getText().toString();
+            int age = Integer.parseInt(editTextAge.getText().toString());
+            int grade = Integer.parseInt(editTextGrade.getText().toString());
+            String major = editTextMajor.getText().toString();
+            dataPasser.onDataPass(name, age, grade, major);
+        });
+        buttonClear.setOnClickListener(v -> {
+            editTextName.setText("");
+            editTextAge.setText("");
+            editTextGrade.setText("");
+            editTextMajor.setText("");
+        });
+        return view;
+    }
+}
