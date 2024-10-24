@@ -34,5 +34,15 @@
         android:rowCount="2"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center">
-        
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:hint="Enter Name"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1" />
+
+
 </LinearLayout>
