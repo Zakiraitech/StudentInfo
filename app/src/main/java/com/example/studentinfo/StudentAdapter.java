@@ -42,4 +42,12 @@ public class StudentAdapter {
 
         TextView nameTextView, ageTextView, gradeTextView, majorTextView;
 
+        public StudentViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameTextView = itemView.findViewById(R.id.textViewName);
+            ageTextView = itemView.findViewById(R.id.textViewAge);
+            gradeTextView = itemView.findViewById(R.id.textViewGrade);
+            majorTextView = itemView.findViewById(R.id.textViewMajor);
+        }
     }
+}
