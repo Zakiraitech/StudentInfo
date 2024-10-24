@@ -3,8 +3,10 @@ package com.example.studentinfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -35,4 +37,9 @@ public class StudentAdapter {
     public int getItemCount() {
         return studentList.size();
     }
-}
+
+    static class StudentViewHolder extends RecyclerView.ViewHolder {
+
+        TextView nameTextView, ageTextView, gradeTextView, majorTextView;
+
+    }
