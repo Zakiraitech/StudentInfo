@@ -1,6 +1,8 @@
 package com.example.studentinfo;
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +16,64 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class DisplayFragment extends Fragment {
+public class Student implements Parcelable {
+    private String name;
+    private int age;
+    private int grade;
+    private String major;
 
-    private RecyclerView recyclerViewStudents;
-    private Button buttonBack;
+    public Student(String name, int age, int grade, String major) {
+        this.name = name;
+        this.age = age;
+        this.grade = grade;
+        this.major = major;
+    }
 
-    @Nullable
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    protected Student(Parcel in) {
+        name = in.readString();
+        age = in.readInt();
+        grade = in.readInt();
+        major = in.readString();
+    }
+
+    public static final Creator<Student> CREATOR = new Creator<Student>() {
+        @Override
+        public Student createFromParcel(Parcel in) {
+            return new Student(in);
+        }
+
+        @Override
+        public Student[] newArray(int size) {
+            return new Student[size];
+        }
+    };
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_display, container, false);
+    public int describeContents() {
+        return 0;
+    }
 
-        recyclerViewStudents = view.findViewById(R.id.recyclerViewStudents);
-        buttonBack = view.findViewById(R.id.buttonBack);
-
-        List<Student> studentList = ((MainActivity) getActivity()).getStudentList();
-        StudentAdapter adapter = new StudentAdapter(studentList);
-        recyclerViewStudents.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewStudents.setAdapter(adapter);
-        buttonBack.setOnClickListener(v -> {
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new DataEntryFragment())
-                    .commit();
-        });
-        return view;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeInt(age);
+        parcel.writeInt(grade);
+        parcel.writeString(major);
     }
 }
