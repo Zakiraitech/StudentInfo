@@ -31,4 +31,8 @@ public class StudentAdapter {
         holder.gradeTextView.setText("Grade: " + student.getGrade());
         holder.majorTextView.setText("Major: " + student.getMajor());
     }
+    @Override
+    public int getItemCount() {
+        return studentList.size();
+    }
 }
