@@ -7,18 +7,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements DataEntryFragment.OnDataPass {
+
+    private List<Student> studentList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        if (savedInstanceState == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, new DataEntryFragment());
+            transaction.commit();
+        }
+    }
+    @Override
+    public void onDataPass(String name, int age, int grade, String major) {
+        studentList.add(new Student(name, age, grade, major));
+        DisplayFragment displayFragment = new DisplayFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("studentList", new ArrayList<>(studentList));
+        displayFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, displayFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    public List<Student> getStudentList() {
+        return studentList;
     }
 }
