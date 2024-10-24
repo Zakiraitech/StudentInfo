@@ -15,4 +15,13 @@
         android:layout_gravity="center"
         android:layout_marginBottom="24dp" />
 
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Records"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
 </LinearLayout>
