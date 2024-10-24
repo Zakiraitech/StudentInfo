@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class StudentAdapter {
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
+
     private List<Student> studentList;
 
     public StudentAdapter(List<Student> studentList) {
@@ -19,7 +20,6 @@ public class StudentAdapter {
 
     @NonNull
     @Override
-
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student, parent, false);
         return new StudentViewHolder(view);
@@ -33,6 +33,7 @@ public class StudentAdapter {
         holder.gradeTextView.setText("Grade: " + student.getGrade());
         holder.majorTextView.setText("Major: " + student.getMajor());
     }
+
     @Override
     public int getItemCount() {
         return studentList.size();
